@@ -11,16 +11,29 @@ function App() {
     event.preventDefault();
     setLoading('Načítání ...')
 
-    const response = await axios.get(process.env.REACT_APP_AWS_TOKEN, {
-      params: {
-        teamUrl: teamUrl
-      }
-    })
+    try {
+      const response = await axios.get(process.env.REACT_APP_AWS_TOKEN, {
+        params: {
+          teamUrl: teamUrl
+        }
+      })
+      const isFileSaverSupported = !!new Blob();
 
-    const bytes = new TextEncoder().encode(response.data);
-    const blob = new Blob([bytes], { type: "text/calendar;charset=utf-8" });
-    saveAs(blob, "psmf.ics");
-    setLoading(" ");
+      if (isFileSaverSupported) {
+        const bytes = new TextEncoder().encode(response.data);
+        const blob = new Blob([bytes], { type: "text/calendar;charset=utf-8" });
+        saveAs(blob, "psmf.ics");
+        setLoading(" ");
+      } else {
+        setLoading('Nepodporovaný prohlížeč');
+      }
+
+    } catch (e) {
+      setLoading('Nepodporovaný prohlížeč nebo chyba serveru');
+    }
+
+
+
   }
 
   return (
@@ -34,11 +47,11 @@ function App() {
       </ol>
       <p><br />
 
-      <label>Odkaz na PSMF stránku týmu</label>
-      
-      <textarea cols="30" rows="2" style={{ width: '100%', height: '38px', marginTop: '5px' }} value={url}
-        onChange={(e) => setUrl(e.target.value)}></textarea><br /><br /><button type="submit" style={{height: '38px' }}>Generovat soubor</button></p>
-        <p>{loading}</p>
+        <label>Odkaz na PSMF stránku týmu</label>
+
+        <textarea cols="30" rows="2" style={{ width: '100%', height: '38px', marginTop: '5px' }} value={url}
+          onChange={(e) => setUrl(e.target.value)}></textarea><br /><br /><button type="submit" style={{ height: '38px' }}>Generovat soubor</button></p>
+      <p>{loading}</p>
     </form>
 
   );
