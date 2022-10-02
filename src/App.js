@@ -9,7 +9,7 @@ function App() {
 
   const handleSubmit = async (event, teamUrl) => {
     event.preventDefault();
-    setLoading('Načítání ...')
+    setLoading('Generuji kalendář ...')
 
     try {
       const response = await axios.get(process.env.REACT_APP_AWS_TOKEN, {
