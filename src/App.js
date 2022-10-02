@@ -49,7 +49,7 @@ function App() {
       <ol>
         <li>Vložte pros&iacute;m odkaz na PSMF str&aacute;nku va&scaron;eho t&yacute;mu. Např&iacute;klad <em><a href="https://www.psmf.cz/souteze/2022-hanspaulska-liga-podzim/8-c/tymy/kosticky/">https://www.psmf.cz/souteze/2022-hanspaulska-liga-podzim/8-c/tymy/kosticky/</a></em></li>
         <li>Vygenerujte a st&aacute;hněte si kalend&aacute;řov&yacute; soubor</li>
-        <li>Kalend&aacute;řov&yacute; soubor (.ics) importujte do sv&eacute;ho kalend&aacute;ře. N&aacute;vod pro Google kalend&aacute;ř <a rel="noopener noreferrer" target="_blank" href="https://youtu.be/DtLM4DUicRU?t=62">zde</a>.</li>
+        <li>Kalend&aacute;řov&yacute; soubor (.ics) importujte do sv&eacute;ho kalend&aacute;ře. N&aacute;vod pro Google kalend&aacute;ř <a rel="noopener noreferrer" target="_blank" href="https://youtu.be/DtLM4DUicRU?t=62">zde</a></li>
       </ol>
       <p>
 
