@@ -40,6 +40,12 @@ function App() {
 
     <form style={{ margin: '20px' }} onSubmit={event => handleSubmit(event, url)}>
       <h1>Gener&aacute;tor kalend&aacute;ře PSMF (iCalendar)</h1>
+      <p style={{color: '#999999'}}>Kontakt na autora: <a style={{color: '#999999'}} href="mailto:hoang.doan@rocketmail.com?subject=PSMF generátor kalendáře">hoang.doan@rocketmail.com</a></p>
+      
+      <h2>Návod</h2>
+
+      <p>Funguje s: Hanspaulsk&aacute; liga, Veter&aacute;nsk&aacute; liga, Superveter&aacute;nsk&aacute; liga, Ultraveter&aacute;nsk&aacute; liga, Futsal</p>
+
       <ol>
         <li>Vložte pros&iacute;m odkaz na PSMF str&aacute;nku va&scaron;eho t&yacute;mu. Např&iacute;klad <em><a href="https://www.psmf.cz/souteze/2022-hanspaulska-liga-podzim/8-c/tymy/kosticky/">https://www.psmf.cz/souteze/2022-hanspaulska-liga-podzim/8-c/tymy/kosticky/</a></em></li>
         <li>Vygenerujte a st&aacute;hněte si kalend&aacute;řov&yacute; soubor</li>
@@ -50,9 +56,10 @@ function App() {
         <label>Odkaz na PSMF stránku týmu</label>
 
         <textarea cols="30" rows="2" style={{ width: '100%', height: '38px', marginTop: '5px' }} value={url}
-          onChange={(e) => setUrl(e.target.value)}></textarea><br /><br /><button type="submit" style={{ height: '38px' }}>Generovat soubor</button></p>
+          onChange={(e) => setUrl(e.target.value)}></textarea><br /><br /><button type="submit" style={{ height: '38px' }}>Generovat soubor</button>
+      </p>
 
-      <p style={{backgroundColor: '#ccffff'}}>{loading}</p>
+      <p style={{ backgroundColor: '#ccffff' }}>{loading}</p>
     </form>
 
   );
