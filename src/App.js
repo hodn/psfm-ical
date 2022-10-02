@@ -22,14 +22,14 @@ function App() {
       if (isFileSaverSupported) {
         const bytes = new TextEncoder().encode(response.data);
         const blob = new Blob([bytes], { type: "text/calendar;charset=utf-8" });
-        saveAs(blob, "psmf.ics");
+        saveAs(blob, "vase-psmf-zapasy.ics");
         setLoading(" ");
       } else {
-        setLoading('Nepodporovaný prohlížeč');
+        setLoading('Nepodporovaný webový prohlížeč, zkuste prosím jiný.');
       }
 
     } catch (e) {
-      setLoading('Nepodporovaný prohlížeč nebo chyba serveru');
+      setLoading('Chyba - ujistěte se prosím, že byl vložen správný odkaz.');
     }
 
 
@@ -43,15 +43,16 @@ function App() {
       <ol>
         <li>Vložte pros&iacute;m odkaz na PSMF str&aacute;nku va&scaron;eho t&yacute;mu. Např&iacute;klad <em><a href="https://www.psmf.cz/souteze/2022-hanspaulska-liga-podzim/8-c/tymy/kosticky/">https://www.psmf.cz/souteze/2022-hanspaulska-liga-podzim/8-c/tymy/kosticky/</a></em></li>
         <li>Vygenerujte a st&aacute;hněte si kalend&aacute;řov&yacute; soubor</li>
-        <li>Kalend&aacute;řov&yacute; soubor (.ics) importujte do sv&eacute;ho kalend&aacute;ře.</li>
+        <li>Kalend&aacute;řov&yacute; soubor (.ics) importujte do sv&eacute;ho kalend&aacute;ře. N&aacute;vod pro Google kalend&aacute;ř <a rel="noopener noreferrer" target="_blank" href="https://youtu.be/DtLM4DUicRU?t=62">zde</a>.</li>
       </ol>
-      <p><br />
+      <p>
 
         <label>Odkaz na PSMF stránku týmu</label>
 
         <textarea cols="30" rows="2" style={{ width: '100%', height: '38px', marginTop: '5px' }} value={url}
           onChange={(e) => setUrl(e.target.value)}></textarea><br /><br /><button type="submit" style={{ height: '38px' }}>Generovat soubor</button></p>
-      <p>{loading}</p>
+
+      <p style={{backgroundColor: '#ccffff'}}>{loading}</p>
     </form>
 
   );
