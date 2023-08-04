@@ -52,7 +52,7 @@ function App() {
         <li>Kalend&aacute;řov&yacute; soubor (.ics) importujte do sv&eacute;ho kalend&aacute;ře. N&aacute;vod pro Google kalend&aacute;ř <a rel="noopener noreferrer" target="_blank" href="https://youtu.be/DtLM4DUicRU?t=62">zde</a></li>
       </ol>
       <p>
-
+        <h2>Generátor</h2>
         <label>Odkaz na PSMF stránku týmu</label>
 
         <textarea cols="30" rows="2" style={{ width: '100%', height: '38px', marginTop: '5px' }} value={url}
