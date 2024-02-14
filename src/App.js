@@ -23,13 +23,15 @@ function App() {
         const bytes = new TextEncoder().encode(response.data);
         const blob = new Blob([bytes], { type: "text/calendar;charset=utf-8" });
         saveAs(blob, "vase-psmf-zapasy.ics");
-        setLoading(" ");
+        setLoading(" ")
       } else {
-        setLoading('Nepodporovaný webový prohlížeč, zkuste prosím jiný.');
+        alert('Nepodporovaný webový prohlížeč, zkus prosím jiný.');
+        setLoading(" ");
       }
 
     } catch (e) {
-      setLoading('Chyba - ujistěte se prosím, že byl vložen správný odkaz.');
+      alert('Chyba! Ujisti se prosím, že byl vložen správný odkaz a že už je rozpis k dispozici.')
+      setLoading(" ");
     }
 
 
@@ -39,28 +41,29 @@ function App() {
   return (
 
     <form style={{ margin: '20px' }} onSubmit={event => handleSubmit(event, url)}>
-      <h1>Gener&aacute;tor kalend&aacute;ře PSMF (iCalendar)</h1>
-      <p style={{color: '#999999'}}>Kontakt na autora: <a style={{color: '#999999'}} href="mailto:hoang.doan@rocketmail.com?subject=PSMF generátor kalendáře">hoang.doan@rocketmail.com</a></p>
-      
-      <h2>Návod</h2>
+      <h1>PSMF rozpis pro digitální kalendáře (iCalendar)</h1>      
 
-      <p>Funguje s: Hanspaulsk&aacute; liga, Veter&aacute;nsk&aacute; liga, Superveter&aacute;nsk&aacute; liga, Ultraveter&aacute;nsk&aacute; liga, Futsal</p>
+      <h4>Hraješ Hanspaulku a nechce se ti ručně přepisovat rozpis zápasů?</h4>
 
-      <ol>
-        <li>Vložte pros&iacute;m odkaz na PSMF str&aacute;nku va&scaron;eho t&yacute;mu. Např&iacute;klad <em><a href="https://www.psmf.cz/souteze/2022-hanspaulska-liga-podzim/8-c/tymy/kosticky/">https://www.psmf.cz/souteze/2022-hanspaulska-liga-podzim/8-c/tymy/kosticky/</a></em></li>
-        <li>Vygenerujte a st&aacute;hněte si kalend&aacute;řov&yacute; soubor</li>
-        <li>Kalend&aacute;řov&yacute; soubor (.ics) importujte do sv&eacute;ho kalend&aacute;ře. N&aacute;vod pro Google kalend&aacute;ř <a rel="noopener noreferrer" target="_blank" href="https://youtu.be/DtLM4DUicRU?t=62">zde</a></li>
-      </ol>
-      <p>
-        <h2>Generátor</h2>
-        <label>Odkaz na PSMF stránku týmu</label>
+      <p>Jednoduše si můžeš vygenerovat .ics soubor k hromadnému nahrání zápasů do tvého digitálního kalendáře (včetně hřišť, barev dresů atd.)</p>
 
-        <textarea cols="30" rows="2" style={{ width: '100%', height: '38px', marginTop: '5px' }} value={url}
-          onChange={(e) => setUrl(e.target.value)}></textarea><br /><br /><button type="submit" style={{ height: '38px' }}>Generovat soubor</button>
+      <p style={{ marginTop: '30px', marginBottom: '30px' }}>
+        <label>Vlož odkaz na PSMF stránku tvého týmu</label>
+
+        <textarea placeholder="Např. https://www.psmf.cz/souteze/2022-hanspaulska-liga-podzim/8-c/tymy/kosticky/" cols="30" rows="2" style={{ width: '100%', height: '38px', marginTop: '5px' }} value={url}
+          onChange={(e) => setUrl(e.target.value)}></textarea>
+          <br /><br /><button type="submit" style={{ height: '38px' }}>Vygenerovat soubor (.ics)</button>
       </p>
 
-      <p style={{ backgroundColor: '#ccffff' }}>{loading}</p>
+      <p style={{ backgroundColor: '#F2BB05' }}>{loading}</p>
+
+      <p style={{color: '#999999'}}> Nevíš, jak se takový soubor nahrává? <a rel="noopener noreferrer" target="_blank" href="https://youtu.be/DtLM4DUicRU?t=62"> Video návod pro Google Kalendář.</a></p>
+      <p style={{color: '#999999'}}>Nástroj podporuje všechny rozpisy: Hanspaulsk&aacute; liga, Veter&aacute;nsk&aacute; liga, Superveter&aacute;nsk&aacute; liga, Ultraveter&aacute;nsk&aacute; liga, Futsal</p>
+      <p style={{color: '#999999'}}>Kontakt na autora: <a style={{color: '#999999'}} href="mailto:hoang.doan@rocketmail.com?subject=PSMF generátor kalendáře">hoang.doan@rocketmail.com</a></p>
+
     </form>
+
+    
 
   );
 }
