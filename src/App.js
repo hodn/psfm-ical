@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
+import { Button, Collapse, Card, Text, Grid, Textarea, Spacer } from '@geist-ui/core'
+
 
 function App() {
 
   const [url, setUrl] = useState('');
-  const [loading, setLoading] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event, teamUrl) => {
     event.preventDefault();
-    setLoading('Generuji kalendář ...')
+    setLoading(true)
 
     try {
       const response = await axios.get(process.env.REACT_APP_AWS_TOKEN, {
@@ -23,15 +25,15 @@ function App() {
         const bytes = new TextEncoder().encode(response.data);
         const blob = new Blob([bytes], { type: "text/calendar;charset=utf-8" });
         saveAs(blob, "vase-psmf-zapasy.ics");
-        setLoading(" ")
+        setLoading(false)
       } else {
         alert('Nepodporovaný webový prohlížeč, zkus prosím jiný.');
-        setLoading(" ");
+        setLoading(false);
       }
 
     } catch (e) {
       alert('Chyba! Ujisti se prosím, že byl vložen správný odkaz a že už je rozpis k dispozici.')
-      setLoading(" ");
+      setLoading(false);
     }
 
 
@@ -40,30 +42,62 @@ function App() {
 
   return (
 
-    <form style={{ margin: '20px' }} onSubmit={event => handleSubmit(event, url)}>
-      <h1>PSMF rozpis pro digitální kalendáře (iCalendar)</h1>      
+    <div style={{ margin: 15 }}>
+      <Grid.Container gap={2} justify="center" height="100px">
 
-      <h4>Hraješ Hanspaulku a nechce se ti ručně přepisovat rozpis zápasů?</h4>
+        <Grid xs={24}>
+          <Card shadow width="100%" type='dark' style={{ backgroundColor: '#e7b518' }}>
+            <Text h5>Přepisovač rozpisu Hanspaulky</Text>
+          </Card>
+        </Grid>
 
-      <p>Vygeneruj si .ics soubor k hromadnému nahrání zápasů do tvého digitálního kalendáře (včetně hřišť, barev dresů atd.)</p>
+        <Grid xs={24} md={10}>
+          <Card shadow width="100%">
+            <Text h3>Nechce se ti ručně přepisovat rozpis Hanspaulky?</Text>
+            <Text>Vygeneruj si soubor k hromadnému nahrání zápasů do tvého digitálního kalendáře (včetně hřišť, barev dresů atd.)</Text>
+          </Card>
+        </Grid>
 
-      <p style={{ marginTop: '30px', marginBottom: '30px' }}>
-        <label>Vlož odkaz na PSMF stránku tvého týmu</label>
+        <Grid xs={24} md={14}>
+          <Card shadow width="100%">
+            <Text h5>Vlož odkaz na PSMF stránku tvého týmu</Text>
+            <Textarea
+              placeholder="Např. https://www.psmf.cz/souteze/2022-hanspaulska-liga-podzim/8-c/tymy/kosticky/"
+              width="100%"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+            >
+              Vlož odkaz na PSMF stránku tvého týmu
+            </Textarea>
 
-        <textarea placeholder="Např. https://www.psmf.cz/souteze/2022-hanspaulska-liga-podzim/8-c/tymy/kosticky/" cols="30" rows="2" style={{ width: '100%', height: '38px', marginTop: '5px' }} value={url}
-          onChange={(e) => setUrl(e.target.value)}></textarea>
-          <br /><br /><button type="submit" style={{ height: '38px' }}>Vygenerovat soubor (.ics)</button>
-      </p>
+            <Spacer />
 
-      <p style={{ backgroundColor: '#F2BB05' }}>{loading}</p>
+            <Button loading={loading} shadow onClick={event => handleSubmit(event, url)} style={{ textTransform: 'none', marginTop: 20 }}>Vygenerovat soubor (.ics)</Button>
 
-      <p style={{color: '#999999'}}> Nevíš, jak se takový soubor nahrává? <a rel="noopener noreferrer" target="_blank" href="https://youtu.be/DtLM4DUicRU?t=62"> Video návod pro Google Kalendář.</a></p>
-      <p style={{color: '#999999'}}>Nástroj podporuje všechny rozpisy: Hanspaulsk&aacute; liga, Veter&aacute;nsk&aacute; liga, Superveter&aacute;nsk&aacute; liga, Ultraveter&aacute;nsk&aacute; liga, Futsal</p>
-      <p style={{color: '#999999'}}>Kontakt na autora: <a style={{color: '#999999'}} href="mailto:hoang.doan@rocketmail.com?subject=PSMF generátor kalendáře">hoang.doan@rocketmail.com</a></p>
+          </Card>
+        </Grid>
 
-    </form>
+        <Grid xs={24}>
+          <Card shadow width="100%">
+          <Text h4>FAQs</Text>
+            <Collapse.Group>
+              <Collapse title="Kde najdu PSMF stránku svého týmu?">
+                <Text>V hlavičce stránky <a rel="noopener noreferrer" target="_blank" href="https://www.psmf.cz/"> PSMF</a> napiš do vyhledávácího pole název svého týmu. Najdeš tam rozpis, tabulku a další užitečné informace o svém týmu.</Text>
+                <Text>Nástroj podporuje všechny rozpisy: Hanspaulsk&aacute; liga, Veter&aacute;nsk&aacute; liga, Superveter&aacute;nsk&aacute; liga, Ultraveter&aacute;nsk&aacute; liga, Futsal.</Text>
+              </Collapse>
+              <Collapse title="Jak se takový soubor nahrává do kalendáře?">
+                <Text>Appka ti vygeneruje standardizovaný iCalendar (.ics) soubor, který lehce otevřeš na počítači i na telefonu. Pokud si nevíš rady, zde je návod pro <a rel="noopener noreferrer" target="_blank" href="https://youtu.be/DtLM4DUicRU?t=62"> Google Kalendář</a>.</Text>
+              </Collapse>
+              <Collapse title="Nějak to nefunguje...">
+                <Text>Ujisti se, že přikládáš aktuální stránku svého týmu, kde už je k dispozici i rozpis zápasů. Pokud nevíš kudy kam, napiš mi na <a style={{ color: '#999999' }} href="mailto:hoang.doan@rocketmail.com?subject=PSMF generátor kalendáře">hoang.doan@rocketmail.com</a></Text>
+              </Collapse>
+            </Collapse.Group>
+          </Card>
+        </Grid>
 
-    
+      </Grid.Container>
+
+    </div>
 
   );
 }
