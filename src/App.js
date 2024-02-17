@@ -45,7 +45,7 @@ function App() {
 
       <h4>Hraješ Hanspaulku a nechce se ti ručně přepisovat rozpis zápasů?</h4>
 
-      <p>Jednoduše si můžeš vygenerovat .ics soubor k hromadnému nahrání zápasů do tvého digitálního kalendáře (včetně hřišť, barev dresů atd.)</p>
+      <p>Vygeneruj si .ics soubor k hromadnému nahrání zápasů do tvého digitálního kalendáře (včetně hřišť, barev dresů atd.)</p>
 
       <p style={{ marginTop: '30px', marginBottom: '30px' }}>
         <label>Vlož odkaz na PSMF stránku tvého týmu</label>
