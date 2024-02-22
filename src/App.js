@@ -54,13 +54,13 @@ function App() {
         <Grid xs={24} md={10}>
           <Card shadow width="100%">
             <Text h3>Nechce se ti ručně přepisovat rozpis Hanspaulky?</Text>
-            <Text>Vygeneruj si soubor k hromadnému nahrání zápasů do tvého digitálního kalendáře (včetně hřišť, barev dresů atd.)</Text>
+            <Text>Vygeneruj si soubor k hromadnému nahrání zápasů do svého digitálního kalendáře (včetně hřišť, barev dresů atd.)</Text>
           </Card>
         </Grid>
 
         <Grid xs={24} md={14}>
           <Card shadow width="100%">
-            <Text h5>Vlož odkaz na PSMF stránku tvého týmu</Text>
+            <Text h5>Vlož odkaz na PSMF stránku svého týmu</Text>
             <Textarea
               placeholder="Např. https://www.psmf.cz/souteze/2022-hanspaulska-liga-podzim/8-c/tymy/kosticky/"
               width="100%"
@@ -88,7 +88,7 @@ function App() {
               <Collapse title="Jak se takový soubor nahrává do kalendáře?">
                 <Text>Appka ti vygeneruje standardizovaný iCalendar (.ics) soubor, který lehce otevřeš na počítači i na telefonu. Pokud si nevíš rady, zde je návod pro <a rel="noopener noreferrer" target="_blank" href="https://youtu.be/DtLM4DUicRU?t=62"> Google Kalendář</a>.</Text>
               </Collapse>
-              <Collapse title="Nějak to nefunguje...">
+              <Collapse title="Nějak to nefunguje. Co mám dělat?">
                 <Text>Ujisti se, že přikládáš aktuální stránku svého týmu, kde už je k dispozici i rozpis zápasů. Pokud nevíš kudy kam, napiš mi na <a style={{ color: '#999999' }} href="mailto:hoang.doan@rocketmail.com?subject=PSMF generátor kalendáře">hoang.doan@rocketmail.com</a></Text>
               </Collapse>
             </Collapse.Group>
