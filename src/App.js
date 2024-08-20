@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
-import { Button, Collapse, Card, Text, Grid, Textarea, Spacer } from '@geist-ui/core'
+import { Note, Button, Collapse, Card, Text, Grid, Textarea, Spacer } from '@geist-ui/core'
 
 
 function App() {
