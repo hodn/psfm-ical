@@ -15,7 +15,7 @@ function App() {
     setLoading(true)
 
     try {
-      const response = await axios.get("process.env.REACT_APP_AWS_TOKEN", {
+      const response = await axios.get(process.env.REACT_APP_AWS_TOKEN, {
         params: {
           teamUrl: teamUrl,
           includeRef: includeReferees
