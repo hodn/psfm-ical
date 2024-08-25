@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
-import { Button, Collapse, Card, Text, Grid, Textarea, Spacer } from '@geist-ui/core'
+import { Button, Collapse, Card, Text, Grid, Textarea, Spacer, Checkbox } from '@geist-ui/core'
 
 
 function App() {
 
   const [url, setUrl] = useState('');
+  const [includeReferees, setIncludeReferees] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event, teamUrl) => {
@@ -14,9 +15,10 @@ function App() {
     setLoading(true)
 
     try {
-      const response = await axios.get(process.env.REACT_APP_AWS_TOKEN, {
+      const response = await axios.get("process.env.REACT_APP_AWS_TOKEN", {
         params: {
-          teamUrl: teamUrl
+          teamUrl: teamUrl,
+          includeRef: includeReferees
         }
       })
       const isFileSaverSupported = !!new Blob();
@@ -72,14 +74,21 @@ function App() {
 
             <Spacer />
 
-            <Button loading={loading} shadow onClick={event => handleSubmit(event, url)} style={{ textTransform: 'none', marginTop: 20 }}>Vygenerovat soubor (.ics)</Button>
+            <Checkbox checked={includeReferees} onChange={e => {
+              setIncludeReferees(!includeReferees);
+            }}>Zahrnout i termíny pískání
+            </Checkbox>
+
+            <Spacer />
+
+            <Button loading={loading} shadow onClick={event => handleSubmit(event, url)} style={{ textTransform: 'none' }}>Vygenerovat kalendář (.ics)</Button>
 
           </Card>
         </Grid>
 
         <Grid xs={24}>
           <Card shadow width="100%">
-          <Text h4>FAQs</Text>
+            <Text h4>FAQs</Text>
             <Collapse.Group>
               <Collapse title="Kde najdu PSMF stránku svého týmu?">
                 <Text>V hlavičce stránky <a rel="noopener noreferrer" target="_blank" href="https://www.psmf.cz/"> PSMF</a> napiš do vyhledávácího pole název svého týmu. Najdeš tam rozpis, tabulku a další užitečné informace o svém týmu.</Text>
