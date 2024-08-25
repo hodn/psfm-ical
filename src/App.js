@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
-import { Note, Button, Collapse, Card, Text, Grid, Textarea, Spacer } from '@geist-ui/core'
+import { Button, Collapse, Card, Text, Grid, Textarea, Spacer } from '@geist-ui/core'
 
 
 function App() {
@@ -53,7 +53,6 @@ function App() {
 
         <Grid xs={24} md={10}>
           <Card shadow width="100%">
-          <Note>Appka je mimo provoz.Vyvojář je zase mimo civilizaci :D Opravím během víkendu 24.-25.8.2024</Note>
             <Text h3>Nechce se ti ručně přepisovat rozpis Hanspaulky?</Text>
             <Text>Vygeneruj si soubor k hromadnému nahrání zápasů do svého digitálního kalendáře (včetně hřišť, barev dresů atd.)</Text>
           </Card>
