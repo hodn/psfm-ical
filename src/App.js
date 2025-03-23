@@ -7,6 +7,7 @@ import { Button, Collapse, Card, Text, Grid, Textarea, Spacer, Checkbox } from '
 function App() {
 
   const [url, setUrl] = useState('');
+  const [includeMatches, setIncludeMatches] = useState(true);
   const [includeReferees, setIncludeReferees] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -14,11 +15,18 @@ function App() {
     event.preventDefault();
     setLoading(true)
 
+    if(includeMatches == false && includeReferees == false) {
+      alert('Odškrtni prosím alespoň jednu sadu termínů');
+      setLoading(false)
+      return;
+    }
+
     try {
       const response = await axios.get(process.env.REACT_APP_AWS_TOKEN, {
         params: {
           teamUrl: teamUrl,
-          includeRef: includeReferees
+          includeMatches: includeMatches,
+          includeReferees: includeReferees
         }
       })
       const isFileSaverSupported = !!new Blob();
@@ -26,8 +34,8 @@ function App() {
       if (isFileSaverSupported) {
         const bytes = new TextEncoder().encode(response.data);
         const blob = new Blob([bytes], { type: "text/calendar;charset=utf-8" });
-        saveAs(blob, "vase-psmf-zapasy.ics");
-        setLoading(false)
+        saveAs(blob, "vas-psmf-rozpis.ics");
+        setLoading(false);
       } else {
         alert('Nepodporovaný webový prohlížeč, zkus prosím jiný.');
         setLoading(false);
@@ -45,50 +53,59 @@ function App() {
   return (
 
     <div style={{ margin: 15 }}>
-      <Grid.Container gap={2} justify="center" height="100px">
+      <Grid.Container gap={2} height="100px">
 
         <Grid xs={24}>
           <Card shadow width="100%" type='dark' style={{ backgroundColor: '#e7b518' }}>
-            <Text h5>Přepisovač rozpisu Hanspaulky</Text>
+            <Text h5>Digitální rozpis Hanspaulky</Text>
           </Card>
         </Grid>
 
-        <Grid xs={24} md={10}>
+        <Grid xs={24} md={8}>
           <Card shadow width="100%">
-            <Text h3>Nechce se ti ručně přepisovat rozpis Hanspaulky?</Text>
+            <Text h5>Nechce se ti ručně přepisovat rozpis Hanspaulky?</Text>
             <Text>Vygeneruj si soubor k hromadnému nahrání zápasů do svého digitálního kalendáře (včetně hřišť, barev dresů atd.)</Text>
           </Card>
         </Grid>
 
-        <Grid xs={24} md={14}>
+        <Grid xs={24} md={16}>
           <Card shadow width="100%">
-            <Text h5>Vlož odkaz na PSMF stránku svého týmu</Text>
+            <Text h6>1. Vlož odkaz na PSMF stránku svého týmu</Text>
             <Textarea
               placeholder="Např. https://www.psmf.cz/souteze/2022-hanspaulska-liga-podzim/8-c/tymy/kosticky/"
               width="100%"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
             >
-              Vlož odkaz na PSMF stránku tvého týmu
             </Textarea>
 
             <Spacer />
 
-            <Checkbox checked={includeReferees} onChange={e => {
-              setIncludeReferees(!includeReferees);
-            }}>Zahrnout i termíny pískání
+            <Text h6>2. Vyber si, co chceš mít v digitálním rozpisu </Text>
+
+            <Checkbox checked={includeMatches} onChange={e => {
+              setIncludeMatches(!includeMatches);
+            }}> Termíny utkání
             </Checkbox>
 
             <Spacer />
 
-            <Button loading={loading} shadow onClick={event => handleSubmit(event, url)} style={{ textTransform: 'none' }}>Vygenerovat kalendář (.ics)</Button>
+
+            <Checkbox checked={includeReferees} onChange={e => {
+              setIncludeReferees(!includeReferees);
+            }}> Termíny pískání
+            </Checkbox>
+
+            <Spacer />
+
+            <Button loading={loading} shadow onClick={event => handleSubmit(event, url)} style={{ textTransform: 'none' }}>Stáhnout digitální rozpis (.ics)</Button>
 
           </Card>
         </Grid>
 
         <Grid xs={24}>
           <Card shadow width="100%">
-            <Text h4>FAQs</Text>
+            <Text h5>FAQs</Text>
             <Collapse.Group>
               <Collapse title="Kde najdu PSMF stránku svého týmu?">
                 <Text>V hlavičce stránky <a rel="noopener noreferrer" target="_blank" href="https://www.psmf.cz/"> PSMF</a> napiš do vyhledávácího pole název svého týmu. Najdeš tam rozpis, tabulku a další užitečné informace o svém týmu.</Text>
