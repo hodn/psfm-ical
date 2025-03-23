@@ -34,7 +34,7 @@ function App() {
       if (isFileSaverSupported) {
         const bytes = new TextEncoder().encode(response.data);
         const blob = new Blob([bytes], { type: "text/calendar;charset=utf-8" });
-        saveAs(blob, "vas-psmf-rozpis.ics");
+        saveAs(blob, "tvuj-psmf-rozpis.ics");
         setLoading(false);
       } else {
         alert('Nepodporovaný webový prohlížeč, zkus prosím jiný.');
