@@ -15,7 +15,7 @@ function App() {
     event.preventDefault();
     setLoading(true)
 
-    if(includeMatches == false && includeReferees == false) {
+    if(includeMatches === false && includeReferees === false) {
       alert('Odškrtni prosím alespoň jednu sadu termínů');
       setLoading(false)
       return;
